@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\GeneralController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +14,7 @@ use App\Http\Controllers\GeneralController;
 |
 */
 
-Route::get('information', [GeneralController::class, 'getInformation']);
+Route::get('information', 'GeneralController@getInformation');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
