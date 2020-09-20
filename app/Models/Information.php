@@ -9,7 +9,7 @@ class Information extends Model
 {
     public function jobs()
     {
-        $jobs = Jobs::all();
+        $jobs = Job::all();
         return $jobs;
     }
 
