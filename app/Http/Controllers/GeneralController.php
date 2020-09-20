@@ -10,7 +10,6 @@ class GeneralController extends Controller
 {
     public function getInformation()
     {
-        return response()->json(['error' => 'TEST'], 400);
         try {
             $information = new Information;
             return new InformationResource($information);
