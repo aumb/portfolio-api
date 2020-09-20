@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('information', 'GeneralController@getInformation');
+Route::get('information', [GeneralController::class, 'getInformation']);
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
