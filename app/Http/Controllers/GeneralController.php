@@ -50,7 +50,7 @@ class GeneralController extends Controller
             $education->university_abrv = $universityAbrv;
         }
 
-        if ($request->has('date')) {
+        if ($request->has('end_date')) {
             $date = $request->date;
             $education->date = $date;
         }
