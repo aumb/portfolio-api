@@ -20,7 +20,7 @@ class InformationResource extends JsonResource
         return [
             'jobs' => new JobResourceCollection($this->jobs()),
             'education' => new EducationResource($this->education()),
-            'personal_information' => new PersonalInformationResource($this->education()),
+            'personal_information' => new PersonalInformationResource($this->personalInformation()),
         ];
     }
 }
