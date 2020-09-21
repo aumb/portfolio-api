@@ -10,6 +10,7 @@ use App\Models\PersonalInformation;
 use Illuminate\Http\Request;
 use App\Models\Information;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class GeneralController extends Controller
 {
@@ -126,9 +127,40 @@ class GeneralController extends Controller
             $personalInformation->dob = Carbon::createFromFormat('Y-m-d', $date);
         }
 
+        if ($request->has('image')) {
+            $file = $request->file('image');
+            if (empty($file) && !empty($personalInformation->img)) {
+                Storage::disk('s3')->delete($personalInformation->img);
+            } else {
+                $filename = 'pp-' . $personalInformation->id . '.' . $file->getClientOriginalExtension();
+
+                if (!empty($personalInformation->img)) {
+                    Storage::disk('s3')->delete($personalInformation->img);
+                }
+
+                $path = $file->storeAs('cv', $filename, 's3');
+                $personalInformation->img = $path;
+            }
+        }
+
         $personalInformation->save();
 
 
         return new PersonalInformation($personalInformation);
+    }
+
+    public function getProfilePicture($personalInformationId)
+    {
+
+        $personalInformation = PersonalInformation::findOrFail($personalInformationId);
+
+
+        if (empty($personalInformation->img)) {
+            return null;
+        } else {
+            $response = Storage::disk('s3')->response($personalInformation->img);
+            $response->headers->set('Content-Type', 'image/png');
+            return $response;
+        }
     }
 }
