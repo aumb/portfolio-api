@@ -16,7 +16,7 @@ class InformationResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'jobs' => new JobResourceCollection($this->jobs)
+            'jobs' => new JobResourceCollection($this->jobs())
         ];
     }
 }
