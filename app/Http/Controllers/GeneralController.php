@@ -8,6 +8,7 @@ use App\Http\Resources\InformationResource;
 use App\Models\Education;
 use Illuminate\Http\Request;
 use App\Models\Information;
+use Illuminate\Support\Carbon;
 
 class GeneralController extends Controller
 {
@@ -52,7 +53,7 @@ class GeneralController extends Controller
 
         if ($request->has('end_date')) {
             $date = $request->date;
-            $education->date = $date;
+            $education->date = Carbon::createFromFormat('Y-m-d', $date);
         }
 
         $education->save();
