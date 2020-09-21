@@ -16,6 +16,7 @@ use App\Http\Controllers\GeneralController;
 */
 
 Route::get('information', [GeneralController::class, 'getInformation']);
+Route::post('education', [GeneralController::class, 'postEducation']);
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
