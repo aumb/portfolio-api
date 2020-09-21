@@ -51,9 +51,9 @@ class GeneralController extends Controller
             $education->university_abrv = $universityAbrv;
         }
 
-        if ($request->has('end_date')) {
+        if ($request->has('date')) {
             $date = $request->date;
-            $education->date = Carbon::createFromFormat('Y-m-d', $date);
+            $education->end_date = Carbon::createFromFormat('Y-m-d', $date);
         }
 
         $education->save();
