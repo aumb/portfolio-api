@@ -18,7 +18,8 @@ class CreateEducationTable extends Migration
             $table->string('degree');
             $table->string('major');
             $table->string('university_name');
-            $table->string('end_date');
+            $table->string('university_abrv');
+            $table->date('end_date');
             $table->timestamps();
         });
     }
