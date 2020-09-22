@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Resources\EducationResource;
 use Exception;
 use App\Http\Resources\InformationResource;
+use App\Http\Resources\JobResource;
 use App\Http\Resources\PersonalInformationResource;
+use App\Models\Job;
 use App\Models\Education;
 use App\Models\PersonalInformation;
 use Illuminate\Http\Request;
@@ -163,5 +165,49 @@ class GeneralController extends Controller
             $response->headers->set('Content-Type', 'image/png');
             return $response;
         }
+    }
+
+    public function postJob(Request $request)
+    {
+        $job = Job::find($request->id);
+
+        if (empty($job)) {
+            $job = new Job();
+        }
+
+        if ($request->has('title')) {
+            $title = $request->title;
+            $job->title = $title;
+        }
+
+        if ($request->has('company_name')) {
+            $companyName = $request->company_name;
+            $job->company_name = $companyName;
+        }
+
+        if ($request->has('company_link')) {
+            $companyLink = $request->company_link;
+            $job->company_link = $companyLink;
+        }
+
+        if ($request->has('description')) {
+            $description = $request->description;
+            $job->description = $description;
+        }
+
+        if ($request->has('start_date')) {
+            $startDate = $request->start_date;
+            $job->start_date = Carbon::createFromFormat('Y-m-d', $startDate);
+        }
+
+        if ($request->has('end_date')) {
+            $endDate = $request->end_date;
+            $job->end_date = Carbon::createFromFormat('Y-m-d', $endDate);
+        }
+
+        $job->save();
+
+
+        return new JobResource($job);
     }
 }
