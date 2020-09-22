@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\EducationResource;
 use Exception;
 use App\Http\Resources\InformationResource;
+use App\Http\Resources\PersonalInformationResource;
 use App\Models\Education;
 use App\Models\PersonalInformation;
 use Illuminate\Http\Request;
@@ -146,7 +147,7 @@ class GeneralController extends Controller
         $personalInformation->save();
 
 
-        return new PersonalInformation($personalInformation);
+        return new PersonalInformationResource($personalInformation);
     }
 
     public function getProfilePicture($personalInformationId)
