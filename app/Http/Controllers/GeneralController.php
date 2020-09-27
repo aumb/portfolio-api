@@ -85,9 +85,29 @@ class GeneralController extends Controller
             $personalInformation->job_title = $jobTitle;
         }
 
+        if ($request->has('job_subtitle')) {
+            $jobSubitle = $request->job_subtitle;
+            $personalInformation->job_subtitle = $jobSubitle;
+        }
+
+        if ($request->has('about_title')) {
+            $aboutTitle = $request->about_title;
+            $personalInformation->about_title = $aboutTitle;
+        }
+
         if ($request->has('about')) {
             $about = $request->about;
             $personalInformation->about = $about;
+        }
+
+        if ($request->has('contact_title')) {
+            $contactTitle = $request->contact_title;
+            $personalInformation->contact_title = $contactTitle;
+        }
+
+        if ($request->has('contact_subtitle')) {
+            $contactSubtitle = $request->contact_subtitle;
+            $personalInformation->contact_subtitle = $contactSubtitle;
         }
 
         if ($request->has('email')) {
