@@ -19,10 +19,10 @@ class CreatePersonalInformationTable extends Migration
             $table->string('job_title');
             $table->text('job_subtitle');
             $table->string('about_title');
-            $table->string('about');
+            $table->text('about');
             $table->string('email');
             $table->string('contact_title');
-            $table->text('contact_subtitle');
+            $table->string('contact_subtitle');
             $table->string('phone_number')->nullable();
             $table->string('linked_in_url')->nullable();
             $table->string('facebook_url')->nullable();
