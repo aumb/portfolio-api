@@ -17,12 +17,12 @@ class CreatePersonalInformationTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('job_title');
-            $table->longText('job_subtitle');
+            $table->text('job_subtitle');
             $table->string('about_title');
             $table->string('about');
             $table->string('email');
             $table->string('contact_title');
-            $table->longText('contact_subtitle');
+            $table->text('contact_subtitle');
             $table->string('phone_number')->nullable();
             $table->string('linked_in_url')->nullable();
             $table->string('facebook_url')->nullable();
