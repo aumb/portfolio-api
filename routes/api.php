@@ -20,7 +20,7 @@ Route::get('information', [GeneralController::class, 'getInformation']);
 Route::post('education', [GeneralController::class, 'postEducation']);
 Route::post('personal_information', [GeneralController::class, 'postPersonalInformation']);
 Route::post('job', [GeneralController::class, 'postJob']);
-Route::get('profilepicture/{id}', 'UserController@getProfilePicture');
+Route::get('profilepicture/{id}', [GeneralController::class, 'getProfilePicture']);
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
