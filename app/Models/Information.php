@@ -16,12 +16,12 @@ class Information extends Model
     public function education()
     {
         $education = Education::all();
-        return $education;
+        return $education->first();
     }
 
     public function personalInformation()
     {
         $personalInformation = PersonalInformation::all();
-        return $personalInformation;
+        return $personalInformation->first();
     }
 }
