@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class RecentWork extends Model
 {
     use HasFactory;
+
+    protected $table = 'singular';
 }
