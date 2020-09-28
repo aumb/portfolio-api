@@ -242,13 +242,13 @@ class GeneralController extends Controller
         }
 
         if ($request->has('url')) {
-            $name = $request->name;
-            $recentWork->name = $name;
+            $url = $request->url;
+            $recentWork->url = $url;
         }
 
         if ($request->has('description')) {
-            $jobTitle = $request->job_title;
-            $recentWork->job_title = $jobTitle;
+            $description = $request->description;
+            $recentWork->description = $description;
         }
 
 
