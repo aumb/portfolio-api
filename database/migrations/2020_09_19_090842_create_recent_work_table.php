@@ -29,8 +29,6 @@ class CreateRecentWorkTable extends Migration
      */
     public function down()
     {
-        Schema::table('recent_work', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('recent_work');
     }
 }
