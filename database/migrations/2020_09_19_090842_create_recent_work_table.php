@@ -13,7 +13,7 @@ class CreateRecentWorkTable extends Migration
      */
     public function up()
     {
-        Schema::table('recent_work', function (Blueprint $table) {
+        Schema::create('recent_work', function (Blueprint $table) {
             $table->id();
             $table->string('img');
             $table->string('url');
