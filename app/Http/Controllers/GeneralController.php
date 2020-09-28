@@ -7,11 +7,13 @@ use Exception;
 use App\Http\Resources\InformationResource;
 use App\Http\Resources\JobResource;
 use App\Http\Resources\PersonalInformationResource;
+use App\Http\Resources\RecentWorkResource;
 use App\Models\Job;
 use App\Models\Education;
 use App\Models\PersonalInformation;
 use Illuminate\Http\Request;
 use App\Models\Information;
+use App\Models\RecentWork;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 
@@ -229,5 +231,61 @@ class GeneralController extends Controller
 
 
         return new JobResource($job);
+    }
+
+    public function postRecentWork(Request $request)
+    {
+        $recentWork = RecentWork::find($request->id);
+
+        if (empty($recentWork)) {
+            $recentWork = new PersonalInformation();
+        }
+
+        if ($request->has('url')) {
+            $name = $request->name;
+            $recentWork->name = $name;
+        }
+
+        if ($request->has('description')) {
+            $jobTitle = $request->job_title;
+            $recentWork->job_title = $jobTitle;
+        }
+
+
+        if ($request->has('image')) {
+            $file = $request->file('image');
+            if (empty($file) && !empty($recentWork->img)) {
+                Storage::disk('s3')->delete($recentWork->img);
+            } else {
+                $filename = 'recent_work-' . $recentWork->id . '.' . $file->getClientOriginalExtension();
+
+                if (!empty($recentWork->img)) {
+                    Storage::disk('s3')->delete($recentWork->img);
+                }
+
+                $path = $file->storeAs('cv', $filename, 's3');
+                $recentWork->img = $path;
+            }
+        }
+
+        $recentWork->save();
+
+
+        return new RecentWorkResource($recentWork);
+    }
+
+    public function getRecentWorkPicture($recentWorkId)
+    {
+
+        $recentWork = RecentWork::findOrFail($recentWorkId);
+
+
+        if (empty($recentWork->img)) {
+            return null;
+        } else {
+            $response = Storage::disk('s3')->response($recentWork->img);
+            $response->headers->set('Content-Type', 'image/png');
+            return $response;
+        }
     }
 }

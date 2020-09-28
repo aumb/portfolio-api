@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Information extends Model
@@ -17,6 +16,12 @@ class Information extends Model
     {
         $education = Education::all();
         return $education->first();
+    }
+
+    public function recentWork()
+    {
+        $recentWork = RecentWork::all();
+        return $recentWork;
     }
 
     public function personalInformation()

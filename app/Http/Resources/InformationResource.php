@@ -21,6 +21,7 @@ class InformationResource extends JsonResource
             'jobs' => new JobResourceCollection($this->jobs()),
             'education' => new EducationResource($this->education()),
             'personal_information' => new PersonalInformationResource($this->personalInformation()),
+            'recent_work' => new RecentWorkResourceCollection($this->recentWork()),
         ];
     }
 }
