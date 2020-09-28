@@ -9,5 +9,5 @@ class RecentWork extends Model
 {
     use HasFactory;
 
-    protected $table = 'singular';
+    protected $table = 'recent_work';
 }
