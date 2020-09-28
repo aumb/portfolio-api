@@ -157,7 +157,7 @@ class GeneralController extends Controller
             if (empty($file) && !empty($personalInformation->img)) {
                 Storage::disk('s3')->delete($personalInformation->img);
             } else {
-                $filename = 'pp-' . $personalInformation->id . '.' . $file->getClientOriginalExtension();
+                $filename = 'pp-' . Carbon::now()->timestamp . '.' . $file->getClientOriginalExtension();
 
                 if (!empty($personalInformation->img)) {
                     Storage::disk('s3')->delete($personalInformation->img);
@@ -227,6 +227,22 @@ class GeneralController extends Controller
             $job->end_date = Carbon::createFromFormat('Y-m-d', $endDate);
         }
 
+        if ($request->has('image')) {
+            $file = $request->file('image');
+            if (empty($file) && !empty($job->img)) {
+                Storage::disk('s3')->delete($job->img);
+            } else {
+                $filename = 'job-' . Carbon::now()->timestamp . '.' . $file->getClientOriginalExtension();
+
+                if (!empty($job->img)) {
+                    Storage::disk('s3')->delete($job->img);
+                }
+
+                $path = $file->storeAs('cv', $filename, 's3');
+                $job->img = $path;
+            }
+        }
+
         $job->save();
 
 
@@ -257,7 +273,7 @@ class GeneralController extends Controller
             if (empty($file) && !empty($recentWork->img)) {
                 Storage::disk('s3')->delete($recentWork->img);
             } else {
-                $filename = 'recent_work-' . $recentWork->id . '.' . $file->getClientOriginalExtension();
+                $filename = 'recent_work-' . Carbon::now()->timestamp . '.' . $file->getClientOriginalExtension();
 
                 if (!empty($recentWork->img)) {
                     Storage::disk('s3')->delete($recentWork->img);
@@ -284,6 +300,21 @@ class GeneralController extends Controller
             return null;
         } else {
             $response = Storage::disk('s3')->response($recentWork->img);
+            $response->headers->set('Content-Type', 'image/png');
+            return $response;
+        }
+    }
+
+    public function getJobPicture($jobId)
+    {
+
+        $job = Job::findOrFail($jobId);
+
+
+        if (empty($job->img)) {
+            return null;
+        } else {
+            $response = Storage::disk('s3')->response($job->img);
             $response->headers->set('Content-Type', 'image/png');
             return $response;
         }

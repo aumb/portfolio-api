@@ -18,6 +18,7 @@ class CreateJobsTable extends Migration
             $table->string('title');
             $table->string('company_name');
             $table->string('company_link')->nullable();
+            $table->string('img');
             $table->string('description');
             $table->date('start_date');
             $table->date('end_date')->nullable();
