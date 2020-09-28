@@ -238,7 +238,7 @@ class GeneralController extends Controller
         $recentWork = RecentWork::find($request->id);
 
         if (empty($recentWork)) {
-            $recentWork = new PersonalInformation();
+            $recentWork = new RecentWork();
         }
 
         if ($request->has('url')) {
