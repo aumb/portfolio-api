@@ -25,9 +25,9 @@ Route::get('profilepicture/{id}', [GeneralController::class, 'getProfilePicture'
 Route::get('recentworkpicture/{id}', [GeneralController::class, 'getRecentWorkPicture']);
 Route::get('jobpicture/{id}', [GeneralController::class, 'getJobPicture']);
 
-Route::delete('personal_information', [GeneralController::class, 'deletePersonalInformation']);
-Route::delete('job', [GeneralController::class, 'deleteJob']);
-Route::delete('recentwork', [GeneralController::class, 'deleteRecentWork']);
+Route::delete('personal_information/{id}', [GeneralController::class, 'deletePersonalInformation']);
+Route::delete('job/{id}', [GeneralController::class, 'deleteJob']);
+Route::delete('recentwork/{id}', [GeneralController::class, 'deleteRecentWork']);
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
