@@ -319,4 +319,40 @@ class GeneralController extends Controller
             return $response;
         }
     }
+
+    public function deleteRecentWork($recentWorkId)
+    {
+        $recentWork = RecentWork::findOrFail($recentWorkId);
+
+        if (!empty($recentWork->img)) {
+            Storage::disk('s3')->delete($recentWork->img);
+        }
+
+        $recentWork->delete();
+        return response()->json(null, 200);
+    }
+
+    public function deletePersonalInformation($personalInformation)
+    {
+        $personalInformation = PersonalInformation::findOrFail($personalInformation);
+
+        if (!empty($personalInformation->img)) {
+            Storage::disk('s3')->delete($personalInformation->img);
+        }
+
+        $personalInformation->delete();
+        return response()->json(null, 200);
+    }
+
+    public function deleteJob($jobId)
+    {
+        $job = Job::findOrFail($jobId);
+
+        if (!empty($job->img)) {
+            Storage::disk('s3')->delete($job->img);
+        }
+
+        $job->delete();
+        return response()->json(null, 200);
+    }
 }
