@@ -16,9 +16,60 @@ use App\Models\Information;
 use App\Models\RecentWork;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
+use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Passport\Client as OClient;
+use App\Models\User;
 
 class GeneralController extends Controller
 {
+    public function login(Request $request)
+    {
+
+        $rules = [
+            'email' => 'required',
+            'password' => 'required',
+        ];
+
+        $this->validate($request, $rules);
+
+        $email = request('email');
+
+        $password = request('password');
+
+
+        if (Auth::attempt(['email' => $email, 'password' => $password])) {
+            $token  = $this->generateAccessToken($email, $password);
+            $user = User::where('email', $email)->first();
+            return response()->json(['token' => $token, 'user' => $user], 200,);
+        } else {
+            return response()->json(['INVAlID'], 400,);
+        }
+    }
+
+    public function register(Request $request)
+    {
+
+        $rules = [
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:6',
+        ];
+
+        $this->validate($request, $rules);
+
+        $data = $request->all();
+
+        $unencryptedPassword = $data['password'];
+
+        $data['password'] = bcrypt($request->password);
+
+        $user = User::create($data);
+
+        $token  = $this->generateAccessToken($user->email, $unencryptedPassword);
+
+        return response()->json(['token' => $token, 'user' => $user], 201,);
+    }
 
     public function getInformation()
     {
@@ -354,5 +405,25 @@ class GeneralController extends Controller
 
         $job->delete();
         return response()->json(null, 200);
+    }
+
+    private function generateAccessToken($email, $password)
+    {
+        $oClient = OClient::where('password_client', 1)->first();
+
+        $http = new Client;
+
+        $response = $http->post('https://floating-cove-36500.herokuapp.com/oauth/token', [
+            'form_params' => [
+                'grant_type' => 'password',
+                'client_id' => $oClient->id,
+                'client_secret' => $oClient->secret,
+                'username' => $email,
+                'password' => $password,
+                'scope' => '*',
+            ],
+        ]);
+
+        return json_decode((string) $response->getBody(), true);
     }
 }

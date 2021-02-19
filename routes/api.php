@@ -15,6 +15,9 @@ use App\Http\Controllers\GeneralController;
 |
 */
 
+Route::post('register', [GeneralController::class, 'register']);
+Route::post('login', [GeneralController::class, 'login']);
+
 Route::post('education', [GeneralController::class, 'postEducation']);
 Route::post('personal_information', [GeneralController::class, 'postPersonalInformation']);
 Route::post('job', [GeneralController::class, 'postJob']);
