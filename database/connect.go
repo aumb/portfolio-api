@@ -6,6 +6,7 @@ import (
 	"strconv"
 
 	"github.com/aumb/portfolio-api/config"
+	"github.com/aumb/portfolio-api/internals/model"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -34,7 +35,7 @@ func ConnectDB() {
 
 	fmt.Println("Connection Opened to Database")
 
-	// // Migrate the database
-	// DB.AutoMigrate(&model.Note{})
-	// fmt.Println("Database Migrated")
+	// Migrate the database
+	DB.AutoMigrate(&model.Portfolio{}, &model.User{}, &model.UserSocialMedia{})
+	fmt.Println("Database Migrated")
 }
