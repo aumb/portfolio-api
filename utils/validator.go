@@ -24,6 +24,7 @@ func Validate(data interface{}) []*ErrorResponse {
 			errors = append(errors, &element)
 		}
 	}
+
 	return errors
 }
 

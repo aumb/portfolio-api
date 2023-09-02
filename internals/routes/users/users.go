@@ -9,5 +9,6 @@ func SetupUsersRoutes(router fiber.Router) {
 	users := router.Group("/users")
 
 	users.Post("/", usersHandler.CreateUser)
+	users.Put("/:userId", usersHandler.UpdateUser)
 	users.Delete("/:userId", usersHandler.DeleteUser)
 }
