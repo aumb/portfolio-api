@@ -35,4 +35,9 @@ services:
       - "3000:3000"
 
 volumes:
-  dbdata: # persist database
+  dbdata:
+    # persist database
+
+networks:
+  go_develop:
+    driver: bridge
