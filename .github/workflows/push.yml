@@ -15,6 +15,7 @@ jobs:
           echo "##[set-output name=latest_tag;]$GITHUB_REPOSITORY:latest"
       - name: Print Version
         run: |
+          echo ${{steps.version_step.outputs.version}}
           echo ${{steps.version_step.outputs.version_tag}}
           echo ${{steps.version_step.outputs.latest_tag}}
       - name: Set up QEMU
@@ -40,7 +41,7 @@ jobs:
         with:
           push: true
           tags: |
-            mathiewabbas/portfolio-api:${{env.VERSION_TAG}}
-            mathiewabbas/portfolio-api:${{env.LASTEST_TAG}}
+            ${{env.VERSION_TAG}}
+            ${{env.LASTEST_TAG}}
           build-args: |
             ${{steps.version_step.outputs.version}}
