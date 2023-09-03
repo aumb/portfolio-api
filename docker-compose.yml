@@ -17,6 +17,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks: [ "go_develop" ]
 
   go:
     container_name: go
@@ -33,6 +34,7 @@ services:
         condition: service_healthy # waiting until heathcheck of postgres is good
     ports:
       - "3000:3000"
+    networks: [ "go_develop" ]
 
 volumes:
   dbdata:
