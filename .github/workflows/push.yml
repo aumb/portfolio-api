@@ -19,10 +19,10 @@ jobs:
           echo ${{steps.version_step.outputs.version_tag}}
           echo ${{steps.version_step.outputs.latest_tag}}
       - name: Build container image
-        run: docker build . --file Dockerfile --tag $IMAGE_NAME
+        run: docker build . --file Dockerfile --tag $GITHUB_REPOSITORY
       - name: Log into GitHub Container Registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
       - name: Push image to GitHub Container Registry
         run: |
-          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME:${{ github.run_id }}        
+          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$GITHUB_REPOSITORY:${{ github.run_id }}        
           docker push $IMAGE_ID
