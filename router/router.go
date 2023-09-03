@@ -3,6 +3,7 @@ package router
 import (
 	portfolioRoutes "github.com/aumb/portfolio-api/internals/routes/portfolio"
 	userAboutRoutes "github.com/aumb/portfolio-api/internals/routes/user_about"
+	userIntroductionRoutes "github.com/aumb/portfolio-api/internals/routes/user_introduction"
 	userSocialMediaRoutes "github.com/aumb/portfolio-api/internals/routes/user_social_media"
 	usersRoutes "github.com/aumb/portfolio-api/internals/routes/users"
 	"github.com/gofiber/fiber/v2"
@@ -17,4 +18,5 @@ func SetupRoutes(app *fiber.App) {
 	usersRoutes.SetupUsersRoutes(api)
 	userSocialMediaRoutes.SetupUserSocialMediaRoutes(api)
 	userAboutRoutes.SetupUserAboutRoutes(api)
+	userIntroductionRoutes.SetupUserIntroductionRoutes(api)
 }

@@ -49,3 +49,10 @@ type UserAbout struct {
 	Title       string    `validate:"required" json:"title" form:"title"`
 	Description string    `validate:"required" json:"description" form:"description"`
 }
+
+type UserIntroduction struct {
+	CommonModelFields
+	UserID      uuid.UUID `gorm:"type:uuid" validate:"required" json:"user_id" form:"user_id"`
+	Title       string    `validate:"required" json:"title" form:"title"`
+	Description string    `validate:"required" json:"description" form:"description"`
+}
