@@ -6,10 +6,10 @@ import (
 )
 
 func SetupUserSocialMediaRoutes(router fiber.Router) {
-	users := router.Group("/user-social-media")
+	userSocialMedia := router.Group("/user-social-media")
 
-	users.Post("/", userSocialMediaHandler.CreateUserSocialMedia)
-	users.Put("/:userSocialMediaId", userSocialMediaHandler.UpdateUserSocialMedia)
-	users.Delete("/:userSocialMediaId", userSocialMediaHandler.DeleteUserSocialMedia)
+	userSocialMedia.Post("/", userSocialMediaHandler.CreateUserSocialMedia)
+	userSocialMedia.Put("/:userSocialMediaId", userSocialMediaHandler.UpdateUserSocialMedia)
+	userSocialMedia.Delete("/:userSocialMediaId", userSocialMediaHandler.DeleteUserSocialMedia)
 
 }

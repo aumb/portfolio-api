@@ -42,3 +42,10 @@ type UserSocialMedia struct {
 	GitHubUrl    string    `validate:"omitempty,http_url" json:"git_hub_url" form:"git_hub_url"`
 	InstagramUrl string    `validate:"omitempty,http_url" json:"instagram_url" form:"instagram_url"`
 }
+
+type UserAbout struct {
+	CommonModelFields
+	UserID      uuid.UUID `gorm:"type:uuid" validate:"required" json:"user_id" form:"user_id"`
+	Title       string    `validate:"required" json:"title" form:"title"`
+	Description string    `validate:"required" json:"description" form:"description"`
+}
