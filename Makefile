@@ -6,3 +6,12 @@ run: build
 
 watch:
 	reflex -s -r '\.go$$' make run
+
+d.up:
+	docker-compose up 
+
+d.down:
+	docker-compose down
+
+d.up.build:
+	docker-compose --build up
